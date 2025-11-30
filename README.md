@@ -42,3 +42,4 @@ The command will build the binary files for the `backend` and `url-front-end` fi
 
 As soon as the user types their username, the username will appear under the `Who's online` panel in real time, and as soon as the user clicks the `send` button, everybody in the chatroom will see the message 
  
+<img width="1139" height="610" alt="Screenshot 2025-11-30 at 6 26 37 PM" src="https://github.com/user-attachments/assets/50c4f672-5cf6-4a04-b7b9-c9ac3c8cf088" />
