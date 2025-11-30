@@ -33,6 +33,7 @@ func ListenToWsChannel() {
 		e := <-wsChan // read paylod from channel
 		fmt.Println("listning fo webhook event")
 		switch e.Action {
+
 		case "username":
 			fmt.Println("the payload", e)
 			//add user to online list
@@ -43,6 +44,11 @@ func ListenToWsChannel() {
 			response.ConnectedUser = users
 			broadcastToAllConn(response)
 
+		case "chat_message":
+			response.Action = "chat_message"
+			// set message
+			response.Message = fmt.Sprintf("<b>%s</b>: %s", e.Username, e.Message)
+			broadcastToAllConn(response)
 		}
 	}
 }

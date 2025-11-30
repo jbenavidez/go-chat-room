@@ -227,105 +227,7 @@ a:hover, a:active, a:focus {
             <!-- selected chat -->
             <div class="col-md-8 bg-white ">
                 <div class="chat-message">
-                    <ul class="chat">
-                        <li class="left clearfix">
-                            <span class="chat-img pull-left">
-                    		<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">John Doe</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix">
-                            <span class="chat-img pull-right">
-                    		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Sarah</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="left clearfix">
-                            <span class="chat-img pull-left">
-                    		<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">John Doe</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix">
-                            <span class="chat-img pull-right">
-                    		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Sarah</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="left clearfix">
-                            <span class="chat-img pull-left">
-                    		<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">John Doe</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix">
-                            <span class="chat-img pull-right">
-                    		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Sarah</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix">
-                            <span class="chat-img pull-right">
-                    		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="User Avatar">
-                    	</span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Sarah</strong>
-                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at.
-                                </p>
-                            </div>
-                        </li>
+                    <ul class="chat" id="chat_room" name="chat_room">
                     </ul>
                 </div>
                 <div class="chat-box bg-white">
@@ -343,10 +245,10 @@ a:hover, a:active, a:focus {
                          </div>
                           <div class="col-6">
                               <label class="sr-only" for="message">Message</label>
-                              <input type="text" class="form-control mb-2" id="message" placeholder="Type your message">
+                              <input type="text" class="form-control mb-2" id="message" name="message" placeholder="Type your message">
                          </div>
                          <div class="col-auto">
-                              <button type="submit" class="btn btn-primary mb-2">Send</button>
+                              <a href="javascript:void(0);" class="btn btn-primary mb-2" id="sendBtn">Send</a>
                          </div>
                          </div>
                          </form>
@@ -362,7 +264,10 @@ a:hover, a:active, a:focus {
   <script src="/static/js/reconnecting-websocket.min.js"></script>
   <script>
   var  socket = null;
-  var  usernameFormField = document.getElementById("username");
+  var usernameFormField = document.getElementById("username");
+  var messageField =  document.getElementById("message");
+  var chatRoom  = document.getElementById("chat_room");
+
   document.addEventListener("DOMContentLoaded", function () {
      socket = new ReconnectingWebSocket("ws://127.0.0.1:8080/ws", null, {debug: true, reconectInterval: 3000});
 
@@ -395,7 +300,7 @@ a:hover, a:active, a:focus {
                            if (connectedUsers[i].length > 0){
                                   var liItem =  '<li class="active bounceInDown">'+
                                               '<a  href="#" class="clearfix">'+
-                                              '<img src="/static/img/p1.png" alt="" class="img-circle">'+
+                                              '<img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">'+
                                               '<div class="friend-name">'+
                                               '<strong>'+connectedUsers[i]+'</strong>' +
                                               '</div>' +
@@ -408,6 +313,24 @@ a:hover, a:active, a:focus {
                           }
 
                     }
+                    break;
+              case "chat_message":
+                
+                var messageObj = data.message.split(":")
+                var userName =  messageObj[0]
+                var theMessage  =  messageObj[1]
+                console.log("valinor here", userName, theMessage)
+                var messageItem =   '<li class="left clearfix">'+
+                                    '<span class="chat-img pull-left"> <img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar"> </span>'+
+                                    '<div class="chat-body clearfix">'+
+                                    '<div class="header">'+
+                                    '<strong class="primary-font">'+userName+'</strong>'+
+                                    '</div>'+
+                                    '<p>'+theMessage+'</p>'+
+                                    '</div>'+
+                                    '</li>'
+                chatRoom.innerHTML = chatRoom.innerHTML + messageItem ;
+                break;
 
            }
        }
@@ -418,6 +341,19 @@ a:hover, a:active, a:focus {
             socket.send(JSON.stringify(jsonData));
         })
 
+
+     document.getElementById("sendBtn").addEventListener("click", function () {
+    
+            if ( usernameFormField.value.length > 0  && messageField.value.length > 0) {
+            console.log("herej on")
+              var jsonData = {};
+                    jsonData["action"] = "chat_message";
+                    jsonData["username"] = usernameFormField.value;
+                    jsonData["message"] = messageField.value;
+                    socket.send(JSON.stringify(jsonData))
+                    messageField.value = "";
+            }  
+        })
      
       })
   </script>

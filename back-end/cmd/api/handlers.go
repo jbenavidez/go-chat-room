@@ -30,7 +30,6 @@ func (app *application) WsChatRoom(w http.ResponseWriter, r *http.Request) {
 	var response WsJsonResponse
 	response.Message = `<em><small> connected to served</small></em>`
 	conn := WebSocketConnection{Conn: ws}
-	clients[conn] = ""
 
 	err = ws.WriteJSON(response)
 	if err != nil {
