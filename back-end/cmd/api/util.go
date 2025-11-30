@@ -3,12 +3,40 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/gorilla/websocket"
 )
 
 type JSONResponse struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
 	Data    any    `json:"data,omitempty"`
+}
+
+type WebSocketConnection struct {
+	*websocket.Conn
+}
+
+type WsJsonResponse struct {
+	Action        string   `json:"action"`
+	Message       string   `json:"message"`
+	MessageType   string   `json:"message_type"`
+	ConnectedUser []string `json:"connected_users"`
+}
+
+type WsPayload struct {
+	Action   string              `json:"action"`
+	Username string              `json:"username"`
+	Message  string              `json:"message"`
+	Conn     WebSocketConnection `json:"-"`
+}
+
+var upgradeConnection = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
 }
 
 func (app *application) writeJSON(w http.ResponseWriter, status int, data any, headers ...http.Header) error {

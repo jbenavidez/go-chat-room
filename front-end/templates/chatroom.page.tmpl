@@ -347,17 +347,17 @@ a:hover, a:active, a:focus {
                          <div class="form-row align-items-left">
                         
                          <div class="col-auto">
-                              <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                              <label class="sr-only" for="username">Username</label>
                               <div class="input-group mb-2">
                               <div class="input-group-prepend">
                                    <div class="input-group-text">@</div>
                               </div>
-                              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                              <input type="text" class="form-control" id="username" name="username" placeholder="Username">
                               </div>
                          </div>
                           <div class="col-6">
-                              <label class="sr-only" for="inlineFormInput">Message</label>
-                              <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Type your message">
+                              <label class="sr-only" for="message">Message</label>
+                              <input type="text" class="form-control mb-2" id="message" placeholder="Type your message">
                          </div>
                          <div class="col-auto">
                               <button type="submit" class="btn btn-primary mb-2">Send</button>
@@ -372,4 +372,42 @@ a:hover, a:active, a:focus {
 </div>
 {{end}}
 
- 
+  {{block "js" .}}
+  <script src="/static/js/reconnecting-websocket.min.js"></script>
+  <script>
+  var  socket = null;
+  var  usernameFormField = document.getElementById("username");
+  document.addEventListener("DOMContentLoaded", function () {
+     socket = new ReconnectingWebSocket("ws://127.0.0.1:8080/ws", null, {debug: true, reconectInterval: 3000});
+
+       socket.onopen = () => {
+            console.log("Successfully connected");
+           
+        }
+
+        socket.onclose = () => {
+            console.log("connection closed");
+       
+        }
+
+        socket.onerror = error => {
+            console.log("there was an error");
+        
+        }
+
+       socket.onmessage = msg => {
+            let data = JSON.parse(msg.data);
+            console.log("the data", data);
+
+        }
+
+     usernameFormField.addEventListener("change", function () {
+            let jsonData = {};
+            jsonData["action"] = "username";
+            jsonData["username"] = this.value;
+            socket.send(JSON.stringify(jsonData));
+        })
+      })
+  </script>
+
+  {{end}}

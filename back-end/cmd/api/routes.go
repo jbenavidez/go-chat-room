@@ -10,5 +10,6 @@ func (a *application) routes() http.Handler {
 	mux := chi.NewRouter()
 
 	mux.Get("/test", a.Tester)
+	mux.Get("/ws", a.WsChatRoom)
 	return mux
 }
