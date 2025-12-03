@@ -26,6 +26,7 @@ type ChatMessage struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Content       string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	Username      string                 `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -70,6 +71,13 @@ func (x *ChatMessage) GetId() int64 {
 func (x *ChatMessage) GetContent() string {
 	if x != nil {
 		return x.Content
+	}
+	return ""
+}
+
+func (x *ChatMessage) GetUsername() string {
+	if x != nil {
+		return x.Username
 	}
 	return ""
 }
@@ -122,10 +130,11 @@ var File_chatroom_proto protoreflect.FileDescriptor
 
 const file_chatroom_proto_rawDesc = "" +
 	"\n" +
-	"\x0echatroom.proto\x12\x05proto\x1a\x1bgoogle/protobuf/empty.proto\"7\n" +
+	"\x0echatroom.proto\x12\x05proto\x1a\x1bgoogle/protobuf/empty.proto\"S\n" +
 	"\vchatMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x18\n" +
-	"\acontent\x18\x02 \x01(\tR\acontent\"H\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\x12\x1a\n" +
+	"\busername\x18\x03 \x01(\tR\busername\"H\n" +
 	"\x1aGetAllChatMessagesResponse\x12*\n" +
 	"\x06result\x18\x01 \x03(\v2\x12.proto.chatMessageR\x06result2f\n" +
 	"\x13ChatMessagesService\x12O\n" +

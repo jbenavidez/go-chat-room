@@ -10,6 +10,7 @@ option go_package = "./";
 message chatMessage{
     int64 id = 1;
     string content =2;
+    string username = 3;
     
 }
 

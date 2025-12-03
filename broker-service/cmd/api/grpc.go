@@ -45,8 +45,9 @@ func (s *server) GetAllChatMessages(ctx context.Context, request *emptypb.Empty)
 	// test
 	var allMessages []*pb.ChatMessage
 	testMessage := pb.ChatMessage{
-		Id:      1,
-		Content: "hello there",
+		Id:       1,
+		Content:  "hello there",
+		Username: "Frodo",
 	}
 	allMessages = append(allMessages, &testMessage)
 	return &pb.GetAllChatMessagesResponse{Result: allMessages}, nil

@@ -35,7 +35,7 @@ func (m *Repository) ChatRoom(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 		return
 	}
-	fmt.Println("the responses", response.Result)
+	fmt.Println("the response", response.Result)
 	data := make(map[string]any)
 	data["messsages"] = response.Result
 	render.RenderTemplate(w, r, "chatroom.page.tmpl", &models.TemplateData{
