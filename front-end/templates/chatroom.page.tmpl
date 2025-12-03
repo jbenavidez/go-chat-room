@@ -228,6 +228,26 @@ a:hover, a:active, a:focus {
             <div class="col-md-8 bg-white ">
                 <div class="chat-message">
                     <ul class="chat" id="chat_room" name="chat_room">
+
+                      {{$messsages := index .Data "messsages"}}
+                      {{range $messsages}}
+                     <li class="left clearfix">
+                            <span class="chat-img pull-left">
+                    		<img src="https://bootdey.com/img/Content/user_3.jpg" alt="User Avatar">
+                    	</span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">John Doe</strong>
+                           
+                                </div>
+                                <p>
+                                    {{.Content}}
+                                </p>
+                            </div>
+                        </li>
+                      {{end}}
+
+
                     </ul>
                 </div>
                 <div class="chat-box bg-white">
