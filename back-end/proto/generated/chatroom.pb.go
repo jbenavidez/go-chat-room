@@ -27,6 +27,7 @@ type ChatMessage struct {
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Content       string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
 	Username      string                 `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -82,6 +83,13 @@ func (x *ChatMessage) GetUsername() string {
 	return ""
 }
 
+func (x *ChatMessage) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
 type GetAllChatMessagesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        []*ChatMessage         `protobuf:"bytes,1,rep,name=result,proto3" json:"result,omitempty"`
@@ -130,15 +138,17 @@ var File_chatroom_proto protoreflect.FileDescriptor
 
 const file_chatroom_proto_rawDesc = "" +
 	"\n" +
-	"\x0echatroom.proto\x12\x05proto\x1a\x1bgoogle/protobuf/empty.proto\"S\n" +
+	"\x0echatroom.proto\x12\x13myproject.customers\x1a\x1bgoogle/protobuf/empty.proto\"r\n" +
 	"\vchatMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x18\n" +
 	"\acontent\x18\x02 \x01(\tR\acontent\x12\x1a\n" +
-	"\busername\x18\x03 \x01(\tR\busername\"H\n" +
-	"\x1aGetAllChatMessagesResponse\x12*\n" +
-	"\x06result\x18\x01 \x03(\v2\x12.proto.chatMessageR\x06result2f\n" +
-	"\x13ChatMessagesService\x12O\n" +
-	"\x12GetAllChatMessages\x12\x16.google.protobuf.Empty\x1a!.proto.GetAllChatMessagesResponseB\x04Z\x02./b\x06proto3"
+	"\busername\x18\x03 \x01(\tR\busername\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x04 \x01(\tR\tcreatedAt\"V\n" +
+	"\x1aGetAllChatMessagesResponse\x128\n" +
+	"\x06result\x18\x01 \x03(\v2 .myproject.customers.chatMessageR\x06result2t\n" +
+	"\x13ChatMessagesService\x12]\n" +
+	"\x12GetAllChatMessages\x12\x16.google.protobuf.Empty\x1a/.myproject.customers.GetAllChatMessagesResponseB\x04Z\x02./b\x06proto3"
 
 var (
 	file_chatroom_proto_rawDescOnce sync.Once
@@ -154,14 +164,14 @@ func file_chatroom_proto_rawDescGZIP() []byte {
 
 var file_chatroom_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_chatroom_proto_goTypes = []any{
-	(*ChatMessage)(nil),                // 0: proto.chatMessage
-	(*GetAllChatMessagesResponse)(nil), // 1: proto.GetAllChatMessagesResponse
+	(*ChatMessage)(nil),                // 0: myproject.customers.chatMessage
+	(*GetAllChatMessagesResponse)(nil), // 1: myproject.customers.GetAllChatMessagesResponse
 	(*emptypb.Empty)(nil),              // 2: google.protobuf.Empty
 }
 var file_chatroom_proto_depIdxs = []int32{
-	0, // 0: proto.GetAllChatMessagesResponse.result:type_name -> proto.chatMessage
-	2, // 1: proto.ChatMessagesService.GetAllChatMessages:input_type -> google.protobuf.Empty
-	1, // 2: proto.ChatMessagesService.GetAllChatMessages:output_type -> proto.GetAllChatMessagesResponse
+	0, // 0: myproject.customers.GetAllChatMessagesResponse.result:type_name -> myproject.customers.chatMessage
+	2, // 1: myproject.customers.ChatMessagesService.GetAllChatMessages:input_type -> google.protobuf.Empty
+	1, // 2: myproject.customers.ChatMessagesService.GetAllChatMessages:output_type -> myproject.customers.GetAllChatMessagesResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

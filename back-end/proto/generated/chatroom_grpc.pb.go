@@ -20,7 +20,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ChatMessagesService_GetAllChatMessages_FullMethodName = "/proto.ChatMessagesService/GetAllChatMessages"
+	ChatMessagesService_GetAllChatMessages_FullMethodName = "/myproject.customers.ChatMessagesService/GetAllChatMessages"
 )
 
 // ChatMessagesServiceClient is the client API for ChatMessagesService service.
@@ -109,7 +109,7 @@ func _ChatMessagesService_GetAllChatMessages_Handler(srv interface{}, ctx contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ChatMessagesService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.ChatMessagesService",
+	ServiceName: "myproject.customers.ChatMessagesService",
 	HandlerType: (*ChatMessagesServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
