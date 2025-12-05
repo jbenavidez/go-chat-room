@@ -238,7 +238,7 @@ a:hover, a:active, a:focus {
                             <div class="chat-body clearfix">
                                 <div class="header">
                                     <strong class="primary-font">  {{.Username}}</strong>
-                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{.CreatedAt}}</small>
+                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{dateFromLayout .CreatedAt}}</small>
                                 </div>
                                 <p>
                                   {{.Content}}

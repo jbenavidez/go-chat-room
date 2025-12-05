@@ -9,9 +9,23 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"time"
 )
 
-var functions = template.FuncMap{}
+var functions = template.FuncMap{
+	"dateFromLayout": func(d string) string {
+		layout := time.RFC3339
+
+		t, err := time.Parse(layout, d)
+		if err != nil {
+			fmt.Println("Error parsing timestamp:", err)
+
+		}
+		fmt.Println("the_time2", t)
+		return t.Format("2006-01-02 15:04") // apply format
+	},
+}
+
 var app *config.AppConfig
 
 func NewTemplates(a *config.AppConfig) {
