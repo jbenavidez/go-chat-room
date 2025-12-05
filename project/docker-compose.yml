@@ -36,7 +36,8 @@ services:
     environment:
       DSN: "host=postgres port=5432 user=postgres password=postgres dbname=broker_db sslmode=disable timezone=UTC connect_timeout=5"
 
-
+    depends_on:
+      - redis # Ensure Redis starts before your Go app
 
   postgres:
     image: 'postgres:14.5'
@@ -53,3 +54,8 @@ services:
       - '5432:5432'
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
+  
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
