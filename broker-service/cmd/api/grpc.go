@@ -91,28 +91,34 @@ func (s *server) AddUserNameToCache(ctx context.Context, request *pb.AddUserName
 		}
 
 		return &pb.AddUserNameToCacheResponse{Result: "username added"}, nil
-	}
-	//Unmarshal
-	err = json.Unmarshal(resp, &usernameList)
-	if err != nil {
-		fmt.Println("error unmarshalling", err)
-	}
-	if slices.Contains(usernameList, theUsername) {
-		fmt.Println()
-	}
-	fmt.Println("the_usernameList", usernameList)
-	//update cache
-	usernameList = append(usernameList, theUsername)
-	req, err := json.Marshal(usernameList)
-	if err != nil {
-		fmt.Println("error marshaling usernameList", err)
-		return nil, err
-	}
-	err = app.RDB.Set(ctx, "users_online", req, 0).Err()
-	if err != nil {
-		fmt.Println("error setting key")
-		return nil, err
+	} else {
+		//Unmarshal
+		err = json.Unmarshal(resp, &usernameList)
+		if err != nil {
+			fmt.Println("error unmarshalling", err)
+		}
+		if slices.Contains(usernameList, theUsername) {
+			fmt.Println()
+		}
+
+		//update cache
+		usernameList = append(usernameList, theUsername)
+		req, err := json.Marshal(usernameList)
+		if err != nil {
+			fmt.Println("error marshaling usernameList", err)
+			return nil, err
+		}
+		err = app.RDB.Set(ctx, "users_online", req, 0).Err()
+		if err != nil {
+			fmt.Println("error setting key")
+			return nil, err
+		}
+		fmt.Println("final_list", usernameList)
 	}
 
 	return &pb.AddUserNameToCacheResponse{Result: "username added"}, nil
+}
+
+func (s *server) GetAllConnectedusers(ctx context.Context, request *emptypb.Empty) (*pb.GetAllConnectedusersResponse, error) {
+	return &pb.GetAllConnectedusersResponse{Result: []string{"heloo", "there"}}, nil
 }

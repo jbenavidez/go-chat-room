@@ -43,7 +43,6 @@ func ListenToWsChannel() {
 		switch e.Action {
 
 		case "username":
-			fmt.Println("the payload", e)
 			//add user to online list
 			clients[e.Conn] = e.Username
 			users := GetOnlineusers()
@@ -69,6 +68,7 @@ func ListenToWsChannel() {
 
 			}
 			broadcastToAllConn(response)
+			break
 		}
 	}
 }

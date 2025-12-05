@@ -20,9 +20,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ChatMessagesService_GetAllChatMessages_FullMethodName = "/myproject.customers.ChatMessagesService/GetAllChatMessages"
-	ChatMessagesService_CreateChatMessage_FullMethodName  = "/myproject.customers.ChatMessagesService/CreateChatMessage"
-	ChatMessagesService_AddUserNameToCache_FullMethodName = "/myproject.customers.ChatMessagesService/AddUserNameToCache"
+	ChatMessagesService_GetAllChatMessages_FullMethodName   = "/myproject.customers.ChatMessagesService/GetAllChatMessages"
+	ChatMessagesService_CreateChatMessage_FullMethodName    = "/myproject.customers.ChatMessagesService/CreateChatMessage"
+	ChatMessagesService_AddUserNameToCache_FullMethodName   = "/myproject.customers.ChatMessagesService/AddUserNameToCache"
+	ChatMessagesService_GetAllConnectedusers_FullMethodName = "/myproject.customers.ChatMessagesService/GetAllConnectedusers"
 )
 
 // ChatMessagesServiceClient is the client API for ChatMessagesService service.
@@ -32,6 +33,7 @@ type ChatMessagesServiceClient interface {
 	GetAllChatMessages(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllChatMessagesResponse, error)
 	CreateChatMessage(ctx context.Context, in *CreateChatMessageRequest, opts ...grpc.CallOption) (*CreateChatMessageResponse, error)
 	AddUserNameToCache(ctx context.Context, in *AddUserNameToCacheRequest, opts ...grpc.CallOption) (*AddUserNameToCacheResponse, error)
+	GetAllConnectedusers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllConnectedusersResponse, error)
 }
 
 type chatMessagesServiceClient struct {
@@ -72,6 +74,16 @@ func (c *chatMessagesServiceClient) AddUserNameToCache(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *chatMessagesServiceClient) GetAllConnectedusers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllConnectedusersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllConnectedusersResponse)
+	err := c.cc.Invoke(ctx, ChatMessagesService_GetAllConnectedusers_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChatMessagesServiceServer is the server API for ChatMessagesService service.
 // All implementations must embed UnimplementedChatMessagesServiceServer
 // for forward compatibility.
@@ -79,6 +91,7 @@ type ChatMessagesServiceServer interface {
 	GetAllChatMessages(context.Context, *emptypb.Empty) (*GetAllChatMessagesResponse, error)
 	CreateChatMessage(context.Context, *CreateChatMessageRequest) (*CreateChatMessageResponse, error)
 	AddUserNameToCache(context.Context, *AddUserNameToCacheRequest) (*AddUserNameToCacheResponse, error)
+	GetAllConnectedusers(context.Context, *emptypb.Empty) (*GetAllConnectedusersResponse, error)
 	mustEmbedUnimplementedChatMessagesServiceServer()
 }
 
@@ -97,6 +110,9 @@ func (UnimplementedChatMessagesServiceServer) CreateChatMessage(context.Context,
 }
 func (UnimplementedChatMessagesServiceServer) AddUserNameToCache(context.Context, *AddUserNameToCacheRequest) (*AddUserNameToCacheResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUserNameToCache not implemented")
+}
+func (UnimplementedChatMessagesServiceServer) GetAllConnectedusers(context.Context, *emptypb.Empty) (*GetAllConnectedusersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllConnectedusers not implemented")
 }
 func (UnimplementedChatMessagesServiceServer) mustEmbedUnimplementedChatMessagesServiceServer() {}
 func (UnimplementedChatMessagesServiceServer) testEmbeddedByValue()                             {}
@@ -173,6 +189,24 @@ func _ChatMessagesService_AddUserNameToCache_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatMessagesService_GetAllConnectedusers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatMessagesServiceServer).GetAllConnectedusers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatMessagesService_GetAllConnectedusers_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatMessagesServiceServer).GetAllConnectedusers(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ChatMessagesService_ServiceDesc is the grpc.ServiceDesc for ChatMessagesService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -191,6 +225,10 @@ var ChatMessagesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddUserNameToCache",
 			Handler:    _ChatMessagesService_AddUserNameToCache_Handler,
+		},
+		{
+			MethodName: "GetAllConnectedusers",
+			Handler:    _ChatMessagesService_GetAllConnectedusers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
