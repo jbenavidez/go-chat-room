@@ -222,6 +222,94 @@ func (x *CreateChatMessageResponse) GetResult() string {
 	return ""
 }
 
+type AddUserNameToCacheRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddUserNameToCacheRequest) Reset() {
+	*x = AddUserNameToCacheRequest{}
+	mi := &file_chatroom_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddUserNameToCacheRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddUserNameToCacheRequest) ProtoMessage() {}
+
+func (x *AddUserNameToCacheRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_chatroom_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddUserNameToCacheRequest.ProtoReflect.Descriptor instead.
+func (*AddUserNameToCacheRequest) Descriptor() ([]byte, []int) {
+	return file_chatroom_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *AddUserNameToCacheRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+type AddUserNameToCacheResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        string                 `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddUserNameToCacheResponse) Reset() {
+	*x = AddUserNameToCacheResponse{}
+	mi := &file_chatroom_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddUserNameToCacheResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddUserNameToCacheResponse) ProtoMessage() {}
+
+func (x *AddUserNameToCacheResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_chatroom_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddUserNameToCacheResponse.ProtoReflect.Descriptor instead.
+func (*AddUserNameToCacheResponse) Descriptor() ([]byte, []int) {
+	return file_chatroom_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *AddUserNameToCacheResponse) GetResult() string {
+	if x != nil {
+		return x.Result
+	}
+	return ""
+}
+
 var File_chatroom_proto protoreflect.FileDescriptor
 
 const file_chatroom_proto_rawDesc = "" +
@@ -238,10 +326,15 @@ const file_chatroom_proto_rawDesc = "" +
 	"\x18CreateChatMessageRequest\x12:\n" +
 	"\apayload\x18\x01 \x01(\v2 .myproject.customers.chatMessageR\apayload\"3\n" +
 	"\x19CreateChatMessageResponse\x12\x16\n" +
-	"\x06result\x18\x01 \x01(\tR\x06result2\xe8\x01\n" +
+	"\x06result\x18\x01 \x01(\tR\x06result\"7\n" +
+	"\x19AddUserNameToCacheRequest\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\"4\n" +
+	"\x1aAddUserNameToCacheResponse\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\tR\x06result2\xdf\x02\n" +
 	"\x13ChatMessagesService\x12]\n" +
 	"\x12GetAllChatMessages\x12\x16.google.protobuf.Empty\x1a/.myproject.customers.GetAllChatMessagesResponse\x12r\n" +
-	"\x11CreateChatMessage\x12-.myproject.customers.CreateChatMessageRequest\x1a..myproject.customers.CreateChatMessageResponseB\x04Z\x02./b\x06proto3"
+	"\x11CreateChatMessage\x12-.myproject.customers.CreateChatMessageRequest\x1a..myproject.customers.CreateChatMessageResponse\x12u\n" +
+	"\x12AddUserNameToCache\x12..myproject.customers.AddUserNameToCacheRequest\x1a/.myproject.customers.AddUserNameToCacheResponseB\x04Z\x02./b\x06proto3"
 
 var (
 	file_chatroom_proto_rawDescOnce sync.Once
@@ -255,23 +348,27 @@ func file_chatroom_proto_rawDescGZIP() []byte {
 	return file_chatroom_proto_rawDescData
 }
 
-var file_chatroom_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_chatroom_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_chatroom_proto_goTypes = []any{
 	(*ChatMessage)(nil),                // 0: myproject.customers.chatMessage
 	(*GetAllChatMessagesResponse)(nil), // 1: myproject.customers.GetAllChatMessagesResponse
 	(*CreateChatMessageRequest)(nil),   // 2: myproject.customers.CreateChatMessageRequest
 	(*CreateChatMessageResponse)(nil),  // 3: myproject.customers.CreateChatMessageResponse
-	(*emptypb.Empty)(nil),              // 4: google.protobuf.Empty
+	(*AddUserNameToCacheRequest)(nil),  // 4: myproject.customers.AddUserNameToCacheRequest
+	(*AddUserNameToCacheResponse)(nil), // 5: myproject.customers.AddUserNameToCacheResponse
+	(*emptypb.Empty)(nil),              // 6: google.protobuf.Empty
 }
 var file_chatroom_proto_depIdxs = []int32{
 	0, // 0: myproject.customers.GetAllChatMessagesResponse.result:type_name -> myproject.customers.chatMessage
 	0, // 1: myproject.customers.CreateChatMessageRequest.payload:type_name -> myproject.customers.chatMessage
-	4, // 2: myproject.customers.ChatMessagesService.GetAllChatMessages:input_type -> google.protobuf.Empty
+	6, // 2: myproject.customers.ChatMessagesService.GetAllChatMessages:input_type -> google.protobuf.Empty
 	2, // 3: myproject.customers.ChatMessagesService.CreateChatMessage:input_type -> myproject.customers.CreateChatMessageRequest
-	1, // 4: myproject.customers.ChatMessagesService.GetAllChatMessages:output_type -> myproject.customers.GetAllChatMessagesResponse
-	3, // 5: myproject.customers.ChatMessagesService.CreateChatMessage:output_type -> myproject.customers.CreateChatMessageResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
+	4, // 4: myproject.customers.ChatMessagesService.AddUserNameToCache:input_type -> myproject.customers.AddUserNameToCacheRequest
+	1, // 5: myproject.customers.ChatMessagesService.GetAllChatMessages:output_type -> myproject.customers.GetAllChatMessagesResponse
+	3, // 6: myproject.customers.ChatMessagesService.CreateChatMessage:output_type -> myproject.customers.CreateChatMessageResponse
+	5, // 7: myproject.customers.ChatMessagesService.AddUserNameToCache:output_type -> myproject.customers.AddUserNameToCacheResponse
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
@@ -288,7 +385,7 @@ func file_chatroom_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_chatroom_proto_rawDesc), len(file_chatroom_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

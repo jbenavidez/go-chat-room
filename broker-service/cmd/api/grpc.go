@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/golang-jwt/jwt/v4/request"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -61,4 +62,10 @@ func (s *server) CreateChatMessage(ctx context.Context, request *pb.CreateChatMe
 	//send response
 	return &pb.CreateChatMessageResponse{Result: "message created"}, nil
 
+}
+
+func (s *server) AddUserNameToCache(context.Context, *pb.AddUserNameToCacheRequest) (*pb.AddUserNameToCacheResponse, error) {
+	theUsername := request.Username
+	fmt.Println("the user to cache isss", theUsername)
+	return &pb.AddUserNameToCacheResponse{Result: "username added"}, nil
 }

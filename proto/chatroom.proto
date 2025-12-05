@@ -28,8 +28,16 @@ message CreateChatMessageResponse {
   string result = 1; 
 }
 
+message AddUserNameToCacheRequest {
+    string username = 1;
+}
+
+message AddUserNameToCacheResponse { 
+  string result = 1; 
+}
 
 service ChatMessagesService {
   rpc GetAllChatMessages(google.protobuf.Empty) returns (GetAllChatMessagesResponse);
   rpc CreateChatMessage(CreateChatMessageRequest) returns (CreateChatMessageResponse);
+  rpc AddUserNameToCache(AddUserNameToCacheRequest) returns (AddUserNameToCacheResponse);
 }
