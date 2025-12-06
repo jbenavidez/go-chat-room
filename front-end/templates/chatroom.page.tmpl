@@ -298,6 +298,12 @@ a:hover, a:active, a:focus {
   var usernameFormField = document.getElementById("username");
   var messageField =  document.getElementById("message");
   var chatRoom  = document.getElementById("chat_room");
+    window.onbeforeunload = function () {
+        console.log("Leaving");
+        let jsonData = {};
+        jsonData["action"] = "left";
+        socket.send(JSON.stringify(jsonData))
+    }
 
   document.addEventListener("DOMContentLoaded", function () {
      socket = new ReconnectingWebSocket("ws://127.0.0.1:8080/ws", null, {debug: true, reconectInterval: 3000});
