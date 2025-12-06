@@ -218,8 +218,19 @@ a:hover, a:active, a:focus {
                 </div>
 
                 <!-- =============================================================== -->
+           
                 <!-- member list -->
                 <ul class="friend-list" id="online_users">
+                      {{$users := index .Data "users"}}
+                      {{range $users}}
+                     <li class="active bounceInDown">
+                        <a href="#" class="clearfix"><img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
+                            <div class="friend-name"><strong>{{ . }}</strong></div>
+                        </a>
+                    </li>
+                      {{end}}
+
+               
                 </ul>
             </div>
 

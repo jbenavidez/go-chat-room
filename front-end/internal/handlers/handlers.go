@@ -28,6 +28,14 @@ func NewHandlers(r *Repository) {
 
 // ChatRoom is the handler for the chatroom page
 func (m *Repository) ChatRoom(w http.ResponseWriter, r *http.Request) {
+	// Get connected users
+	resp, err := m.App.GRPCClient.GetAllConnectedusers(r.Context(), &emptypb.Empty{})
+	if err != nil {
+		fmt.Println("something break", err)
+		fmt.Fprint(w, err)
+		return
+	}
+	//Get all messages
 	fmt.Println("getting message from grpc")
 	response, err := m.App.GRPCClient.GetAllChatMessages(r.Context(), &emptypb.Empty{})
 	if err != nil {
@@ -35,9 +43,11 @@ func (m *Repository) ChatRoom(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 		return
 	}
-	fmt.Println("the response", response.Result)
+	//Set Template data
 	data := make(map[string]any)
 	data["messsages"] = response.Result
+	data["users"] = resp.Result
+	// Render template
 	render.RenderTemplate(w, r, "chatroom.page.tmpl", &models.TemplateData{
 		Data: data,
 	})
