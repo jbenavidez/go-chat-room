@@ -96,9 +96,11 @@ func (s *server) AddUserNameToCache(ctx context.Context, request *pb.AddUserName
 		err = json.Unmarshal(resp, &usernameList)
 		if err != nil {
 			fmt.Println("error unmarshalling", err)
+			return &pb.AddUserNameToCacheResponse{Result: ""}, err
 		}
 		if slices.Contains(usernameList, theUsername) {
 			fmt.Println()
+			return &pb.AddUserNameToCacheResponse{Result: ""}, nil
 		}
 
 		//update cache
@@ -120,5 +122,17 @@ func (s *server) AddUserNameToCache(ctx context.Context, request *pb.AddUserName
 }
 
 func (s *server) GetAllConnectedusers(ctx context.Context, request *emptypb.Empty) (*pb.GetAllConnectedusersResponse, error) {
-	return &pb.GetAllConnectedusersResponse{Result: []string{"heloo", "there"}}, nil
+
+	var usernameList []string
+	resp, err := app.RDB.Get(ctx, "users_online").Bytes()
+	if errors.Is(err, redis.Nil) {
+		// do nothing
+		fmt.Println("no user connected")
+	} else {
+		err = json.Unmarshal(resp, &usernameList)
+		if err != nil {
+			fmt.Println("error unmarshalling", err)
+		}
+	}
+	return &pb.GetAllConnectedusersResponse{Result: usernameList}, nil
 }
